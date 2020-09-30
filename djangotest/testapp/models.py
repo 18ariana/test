@@ -2,7 +2,9 @@ from django.db import models
 
 # Create your models here.
 
+
 class People(models.Model):
+
     name = models.CharField("Name", max_length=100)
     age = models.IntegerField("Age")
     telephone = models.CharField("Telephone", max_length=15)
@@ -12,5 +14,5 @@ class People(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Человек"
-        verbose_name_plural = "Люди"
+        verbose_name = "Human"
+        verbose_name_plural = "People"
