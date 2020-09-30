@@ -25,7 +25,7 @@ SECRET_KEY = 'soa51!gn2@&0isjyns7fl)=e$1dabfjlv6l^zv-+z(d+h@2#gf'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
