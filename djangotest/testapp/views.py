@@ -44,10 +44,8 @@ class ChangePasswordView(generics.UpdateAPIView):
             self.object.set_password(serializer.data.get("new_password"))
             self.object.save()
             response = {
-                'status': 'success',
-                'code': status.HTTP_200_OK,
                 'message': 'Password updated successfully',
-                'data': []
+
             }
 
             return Response(response)
