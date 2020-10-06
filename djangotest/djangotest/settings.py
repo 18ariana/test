@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django_rest_passwordreset',
     'django_filters',
     'corsheaders',
+    'drf_multiple_model'
 ]
 
 MIDDLEWARE = [
@@ -144,7 +145,9 @@ DJOSER = {
     'ACTIVATION_URL': '#/activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
-    'SERIALIZERS': {},
+    'SERIALIZERS': {
+        'user_create': 'testapp.serializers.UserRegistrationSerializer',
+    },
 }
 
 SIMPLE_JWT = {
@@ -172,6 +175,9 @@ SIMPLE_JWT = {
     'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
     'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
 }
+
+AUTH_USER_MODEL = 'testapp.MyUser'
+
 
 REST_FRAMEWORK ={
     'DEFAULT_AUTHENTICATION_CLASSES':(
