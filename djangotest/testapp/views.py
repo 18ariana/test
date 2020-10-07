@@ -3,7 +3,8 @@ from rest_framework.status import HTTP_200_OK
 from .serializers import ChangePasswordSerializer
 from rest_framework import generics, status, views, permissions
 from .serializers import RegisterSerializer, SetNewPasswordSerializer, ResetPasswordEmailRequestSerializer, \
-    EmailVerificationSerializer, LoginSerializer, LogoutSerializer, UserProfileSerializer, UserRegistrationSerializerNew
+    EmailVerificationSerializer, LoginSerializer, LogoutSerializer, UserProfileSerializer, UserRegistrationSerializerNew, \
+    UserProfileCreateSerializer
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 import jwt
@@ -18,6 +19,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.urls import reverse
 from django.http import HttpResponsePermanentRedirect
 import os
+import json
 
 from django.core.mail import EmailMessage
 from drf_multiple_model.views import ObjectMultipleModelAPIView
@@ -88,8 +90,20 @@ class RegisterView(generics.GenericAPIView):
 
 
     def post(self, request):
-        user = request.data
+        data = request.data
+        user={"email":'', "password":'', "username":''}
+        user["email"] = data['email']
+        user["password"] = data['password']
+        user["username"] = data['username']
+        del data['email']
+        del data['password']
+        del data['username']
+        print(data)
+        print(user)
         serializer = self.serializer_class(data=user)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        serializer=UserProfileCreateSerializer(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
         user_data = serializer.data
@@ -220,8 +234,9 @@ class LogoutAPIView(generics.GenericAPIView):
 
 
 class InsertProfileView(generics.CreateAPIView):
+    serializer_class = UserProfileCreateSerializer
+    permission_classes = (permissions.AllowAny,)
 
-    queryset = MyUser.objects.all()
-    serializer_class = UserRegistrationSerializerNew
+
 
 

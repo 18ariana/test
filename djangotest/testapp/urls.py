@@ -18,4 +18,5 @@ urlpatterns = [
     path('password-reset-complete', SetNewPasswordAPIView.as_view(),
          name='password-reset-complete'),
     path('profile/', InsertProfileView.as_view())
+
 ]

@@ -184,7 +184,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ('first_name', 'user')
+        fields = '__all__'
 
 
 class UserRegistrationSerializerNew(serializers.ModelSerializer):
@@ -198,3 +198,7 @@ class UserRegistrationSerializerNew(serializers.ModelSerializer):
         return MyUser.objects.create(**validated_data)
 
 
+class UserProfileCreateSerializer(serializers.Serializer):
+    class Meta:
+        model = UserProfile
+        fields = '__all__'
